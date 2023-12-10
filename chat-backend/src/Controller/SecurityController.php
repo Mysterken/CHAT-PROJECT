@@ -82,4 +82,39 @@ class SecurityController extends AbstractController
             'username' => $user->getUsername()
         ], Response::HTTP_CREATED);
     }
+
+    #[Route('/api/update/{userId}', name: 'app_update_user', methods: ['POST'])]
+    public function updateUser(
+        int                            $userId,
+        Request                        $request,
+        UserRepository                 $userRepository,
+        PasswordHasherFactoryInterface $passwordHasherFactory,
+        EntityManagerInterface         $entityManager
+    ): Response
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $username = $data['username'] ?? null;
+        $password = $data['password'] ?? null;
+
+        $user = $userRepository->find($userId);
+
+        if (!$user) {
+            return $this->json(['message' => 'User not found'], Response::HTTP_BAD_REQUEST);
+        }
+
+        if ($username) {
+            $user->setUsername($username);
+        }
+
+        if ($password) {
+            $passwordHasher = $passwordHasherFactory->getPasswordHasher($user);
+            $user->setPassword($passwordHasher->hash($password));
+        }
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->json(["message" => "User updated"], Response::HTTP_OK);
+    }
 }

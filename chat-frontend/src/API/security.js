@@ -23,6 +23,17 @@ export async function register(email, username, password) {
   throw res;
 }
 
+export async function updateUser(id, username, password) {
+  const res = await postData(`/api/update/${id}`, {
+    username: username,
+    password: password
+  });
+  if (res.status === 200) {
+    return res.data;
+  }
+  throw res;
+}
+
 export function getUserId() {
   return localStorage.getItem('userId');
 }
