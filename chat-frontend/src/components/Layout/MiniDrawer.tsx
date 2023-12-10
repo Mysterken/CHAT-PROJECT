@@ -103,7 +103,7 @@ export default function MiniDrawer() {
   const [users, setUsers] = React.useState([]);
   const [currentRecipient, setCurrentRecipient] = React.useState(0);
   const [currentReceiver, setCurrentReceiver] = React.useState(0);
-  const [currentUser, setCurrentUser] = React.useState(0);
+  const [currentUser, setCurrentUser] = React.useState(getUserId());
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -113,13 +113,25 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  function getChatMessage() {
-    getChat(currentUser, currentRecipient)
+  function getChatMessage(recipient) {
+    if (recipient === 0) {
+      return;
+    }
+    getChat(currentUser, recipient)
       .then((response) => {
         setMessages(response)
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       });
   }
 
@@ -149,16 +161,15 @@ export default function MiniDrawer() {
       });
   }
 
-  useEffect(() => {
-    const userId = getUserId();
-    setCurrentUser(userId);
-  }, [currentUser]);
+  function changeCurrentRecipient(id) {
+    setCurrentRecipient(id);
+  }
 
   useEffect(() => {
-    if (currentRecipient === 0) {
+    if (currentRecipient == 0) {
       return;
     }
-    getChatMessage();
+    getChatMessage(currentRecipient);
   }, [currentRecipient])
 
   useEffect(() => {
@@ -190,20 +201,12 @@ export default function MiniDrawer() {
 
   useEffect(() => {
     // get current receiver by id
-    if (currentRecipient === 0) {
+    if (currentRecipient == 0) {
       return;
     }
-    const receiver = users.find((user) => user.id === currentRecipient);
+    const receiver = users.find((user) => user.id == currentRecipient);
     setCurrentReceiver(receiver);
   }, [currentRecipient]);
-
-  // get messages every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      getChatMessage();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <Box sx={{display: 'flex'}}>
@@ -242,7 +245,7 @@ export default function MiniDrawer() {
             // get first letter of username
             const firstLetter = user.username.charAt(0).toUpperCase();
             return (
-              <ListItemButton onClick={() => setCurrentRecipient(user.id)}>
+              <ListItemButton onClick={() => changeCurrentRecipient(user.id)}>
                 <Avatar sx={{backgroundColor: user.color}}>{firstLetter}</Avatar>
                 <ListItemText primary={user.username} sx={{ml: "10px"}}/>
               </ListItemButton>
