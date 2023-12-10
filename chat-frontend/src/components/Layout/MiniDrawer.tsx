@@ -262,10 +262,12 @@ export default function MiniDrawer() {
           <MessageBubble message={message}/>
         ))}
 
-        <TextField id="message-field" variant="outlined"
-                   sx={{mt: "50px", backgroundColor: "white", borderRadius: "15px", width: "100%"}}
-                   onKeyDown={(ev) => { if (ev.key === 'Enter') { handleSendMessage(ev) } }}
-        />
+        {currentRecipient === 0 ? <></> :
+          <TextField id="message-field" variant="outlined"
+                     sx={{mt: "50px", backgroundColor: "white", borderRadius: "15px", width: "100%"}}
+                     onKeyDown={(ev) => { if (ev.key === 'Enter') { handleSendMessage(ev) } }}
+          />
+        }
       </Box>
       <ToastContainer/>
     </Box>
