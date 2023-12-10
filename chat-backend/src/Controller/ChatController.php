@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ChatController extends AbstractController
 {
-    #[Route('/api/chat/{userId}/{otherUserId}', name: 'app_chat')]
+    #[Route('/api/chat/{userId}/{otherUserId}', name: 'app_chat', methods: ['GET'])]
     public function index(int $userId, int $otherUserId, MessageRepository $messageRepository): Response
     {
         $messages = $messageRepository->findMessagesByUsers($userId, $otherUserId);

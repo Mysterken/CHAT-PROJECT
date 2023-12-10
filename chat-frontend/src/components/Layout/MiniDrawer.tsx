@@ -145,7 +145,7 @@ export default function MiniDrawer() {
 
     postChat(currentUser, data)
       .then((response) => {
-        getChatMessage();
+        getChatMessage(currentRecipient);
       })
       .catch((error) => {
         toast.error(error.message, {
