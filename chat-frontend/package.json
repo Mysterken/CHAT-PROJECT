@@ -1,0 +1,42 @@
+{
+  "name": "chat-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src/",
+    "pretty": "prettier --write src/"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.12",
+    "@mui/material": "^5.14.12",
+    "@types/node": "^20.6.4",
+    "axios": "^1.6.2",
+    "i18next": "^23.5.1",
+    "i18next-browser-languagedetector": "^7.1.0",
+    "preact": "^10.16.0",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat",
+    "react-i18next": "^13.2.2",
+    "react-router-dom": "^6.16.0",
+    "react-toastify": "^9.1.3"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.5.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier-eslint": "^15.0.1",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.5",
+    "vite-plugin-i18next-loader": "^2.0.4",
+    "vite-plugin-pwa": "^0.16.5"
+  }
+}

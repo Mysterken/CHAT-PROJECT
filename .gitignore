@@ -1,0 +1,14 @@
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+/chat-frontend/node_modules
+/chat-frontend/dist
+/chat-frontend/dev-dist
+/chat-frontend/.idea
+
+/chat-backend/var
+/chat-backend/vendor
+/chat-backend/.idea
