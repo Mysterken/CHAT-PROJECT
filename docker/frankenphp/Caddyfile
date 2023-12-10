@@ -22,7 +22,7 @@ log {
 	}
 }
 
-:80 {
+route {
 
 	mercure {
 		# Transport to use (default to Bolt)
