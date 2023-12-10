@@ -176,7 +176,7 @@ export default function MiniDrawer() {
     getUsers()
       .then((response) => {
         // remove current user from list
-        const u = response.findIndex((user) => user.id === currentUser);
+        const u = response.findIndex((user) => user.id == currentUser);
         response.splice(u, 1);
         // assign a random color to each user
         response.forEach((user) => {
